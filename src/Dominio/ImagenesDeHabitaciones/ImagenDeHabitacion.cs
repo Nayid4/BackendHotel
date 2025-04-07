@@ -1,11 +1,6 @@
 ﻿using Dominio.Genericos;
 using Dominio.Habitaciones;
 using Dominio.Imagenes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio.ImagenesDeHabitaciones
 {

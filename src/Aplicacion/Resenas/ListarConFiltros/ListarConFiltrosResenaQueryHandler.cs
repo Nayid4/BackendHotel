@@ -22,7 +22,9 @@ namespace Aplicacion.Resenas.ListarConFiltros
                 resenas = resenas.Where(at => 
                     at.Titulo.ToLower().Contains(consulta.TerminoDeBusqueda.ToLower()) ||
                     at.Habitacion!.Nombre.ToLower().Contains(consulta.TerminoDeBusqueda.ToLower()) ||
-                    at.Usuario!.Nombre.ToLower().Contains(consulta.TerminoDeBusqueda.ToLower())
+                    at.Usuario!.NombreDeUsuario.ToLower().Contains(consulta.TerminoDeBusqueda.ToLower()) ||
+                    at.Usuario!.Nombre.ToLower().Contains(consulta.TerminoDeBusqueda.ToLower()) ||
+                    at.Calificacion.ToString().ToLower().Contains(consulta.TerminoDeBusqueda.ToLower())
                 );
             }
 
@@ -72,7 +74,9 @@ namespace Aplicacion.Resenas.ListarConFiltros
             {
                 "titulo" => resena => resena.Titulo,
                 "habitacion" => resena => resena.Habitacion!.Nombre,
+                "nombreDeUsuario" => resena => resena.Usuario!.NombreDeUsuario,
                 "usuario" => resena => resena.Usuario!.Nombre,
+                "calificaion" => resena => resena.Calificacion,
                 _ => resena => resena.Id
             };
         }

@@ -17,8 +17,8 @@ namespace Dominio.ImagenesDeResenas
         public Imagen? Imagen { get; private set; } = default!;
         public Resena? Resena { get; private set; } = default!;
 
-        public ImagenDeResena(IdImagenDeResena idImagenDeResena, IdResena idResena, IdImagen idImagen)
-            : base(idImagenDeResena)
+        public ImagenDeResena(IdImagenDeResena id, IdResena idResena, IdImagen idImagen)
+            : base(id)
         {
             IdResena = idResena ?? throw new ArgumentNullException(nameof(idResena));
             IdImagen = idImagen ?? throw new ArgumentNullException(nameof(idImagen));

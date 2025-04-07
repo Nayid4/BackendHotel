@@ -38,7 +38,7 @@ namespace Infraestructura.Persistencia.Configuraciones
 
 
             builder.HasOne(t => t.Usuario)
-                .WithMany()
+                .WithMany(r => r.Resenas)
                 .HasForeignKey(t => t.IdUsuario)
                 .OnDelete(DeleteBehavior.Cascade);
 

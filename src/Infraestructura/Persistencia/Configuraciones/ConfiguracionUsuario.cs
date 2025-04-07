@@ -37,10 +37,16 @@ namespace Infraestructura.Persistencia.Configuraciones
                 .HasMaxLength(255)
                 .IsRequired();
 
-            builder.HasMany(t => t.Reservas)
-                .WithOne()
-                .HasForeignKey(t => t.Id)
+            builder.HasMany(u => u.Reservas)
+                .WithOne(r => r.Usuario)
+                .HasForeignKey(r => r.IdUsuario)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(u => u.Resenas)
+                .WithOne(r => r.Usuario)
+                .HasForeignKey(r => r.IdUsuario)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             builder.Property(t => t.FechaDeCreacion)
                 .IsRequired();

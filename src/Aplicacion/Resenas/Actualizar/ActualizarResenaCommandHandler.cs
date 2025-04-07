@@ -12,14 +12,16 @@ namespace Aplicacion.Resenas.Actualizar
         private readonly IRepositorioResena _repositorioResena;
         private readonly IRepositorioHabitacion _repositorioHabitacion;
         private readonly IRepositorioUsuario _repositorioUsuario;
+        private readonly IRepositorioImagen _repositorioImagen;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ActualizarResenaCommandHandler(IRepositorioResena repositorioResena, IUnitOfWork unitOfWork, IRepositorioHabitacion repositorioHabitacion, IRepositorioUsuario repositorioUsuario)
+        public ActualizarResenaCommandHandler(IRepositorioResena repositorioResena, IUnitOfWork unitOfWork, IRepositorioHabitacion repositorioHabitacion, IRepositorioUsuario repositorioUsuario, IRepositorioImagen repositorioImagen)
         {
             _repositorioResena = repositorioResena ?? throw new ArgumentNullException(nameof(repositorioResena));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _repositorioHabitacion = repositorioHabitacion ?? throw new ArgumentNullException(nameof(repositorioHabitacion));
             _repositorioUsuario = repositorioUsuario ?? throw new ArgumentNullException(nameof(repositorioUsuario));
+            _repositorioImagen = repositorioImagen ?? throw new ArgumentNullException(nameof(repositorioImagen));
         }
 
         public async Task<ErrorOr<Unit>> Handle(ActualizarResenaCommand comando, CancellationToken cancellationToken)
@@ -63,6 +65,7 @@ namespace Aplicacion.Resenas.Actualizar
                 );
 
                 listaDeImagenes.Add(imagenDeHabitacion);
+                _repositorioImagen.Crear(imagenNueva);
 
             }
 

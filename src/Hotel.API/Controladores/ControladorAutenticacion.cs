@@ -1,6 +1,8 @@
-﻿using Aplicacion.Usuarios.DatosUsuario;
+﻿using Aplicacion.Usuarios.Actualizar;
+using Aplicacion.Usuarios.DatosUsuario;
 using Aplicacion.Usuarios.IniciarSesion;
 using Aplicacion.Usuarios.RefrescarToken;
+using Aplicacion.Usuarios.RestaurarContrasena;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Hotel.API.Controladores
@@ -48,6 +50,27 @@ namespace Hotel.API.Controladores
 
             return resultadoDeListarDatosUsuario.Match(
                 usuarioid => Ok(usuarioid),
+                errores => Problem(errores)
+            );
+        }
+
+        [HttpPut("restaurar-contrasena/{id}")]
+        public async Task<IActionResult> Actualizar(Guid id, [FromBody] RestaurarContrasenaDeUsuarioCommand comando)
+        {
+            if (comando.IdUsuario != id)
+            {
+                List<Error> errores = new()
+                {
+                    Error.Validation("Usuario.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
+                };
+
+                return Problem(errores);
+            }
+
+            var resultadoDeActualizarListaTarea = await _mediator.Send(comando);
+
+            return resultadoDeActualizarListaTarea.Match(
+                resp => NoContent(),
                 errores => Problem(errores)
             );
         }

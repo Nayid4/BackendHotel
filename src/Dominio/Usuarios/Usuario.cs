@@ -47,6 +47,12 @@ namespace Dominio.Usuarios
             FechaDeActualizacion = DateTime.Now;
         }
 
+        public void RestaurarContrasena(string contrasena)
+        {
+            Contrasena = contrasena ?? throw new ArgumentNullException(nameof(contrasena));
+            FechaDeActualizacion = DateTime.Now;
+        }
+
         public void AgregarReserva(Reserva reserva)
         {
             if (reserva == null) throw new ArgumentNullException(nameof(reserva));

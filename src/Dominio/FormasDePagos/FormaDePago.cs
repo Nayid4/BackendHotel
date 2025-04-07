@@ -10,26 +10,28 @@ namespace Dominio.FormasDePagos
     public sealed class FormaDePago : EntidadGenerica<IdFormaDePago>
     {
         public string Titular { get; private set; } = string.Empty;
-        public string Numero { get; private set; } = string.Empty;
-        public string FechaDeVencimiento { get; private set; } = string.Empty;
+        public string NumeroTarjeta { get; private set; } = string.Empty;
+        public DateTime FechaDeVencimiento { get; private set; }
         public string Cvv { get; private set; } = string.Empty;
 
-        public FormaDePago(IdFormaDePago idFormaDePago, string titular, string numero, string fechaDeVencimiento, string cvv)
-            : base(idFormaDePago)
+        public FormaDePago(IdFormaDePago id, string titular, string numeroTarjeta, DateTime fechaDeVencimiento, string cvv)
+            : base(id)
         {
             Titular = titular ?? throw new ArgumentNullException(nameof(titular));
-            Numero = numero ?? throw new ArgumentNullException(nameof(numero));
+            NumeroTarjeta = numeroTarjeta ?? throw new ArgumentNullException(nameof(numeroTarjeta));
             FechaDeVencimiento = fechaDeVencimiento;
             Cvv = cvv ?? throw new ArgumentNullException(nameof(cvv));
         }
 
-        public void Actualizar(string titular, string numero, string fechaDeVencimiento, string cvv)
+
+        public void Actualizar(string titular, string numeroTarjeta, DateTime fechaDeVencimiento, string cvv)
         {
             Titular = titular ?? throw new ArgumentNullException(nameof(titular));
-            Numero = numero ?? throw new ArgumentNullException(nameof(numero));
+            NumeroTarjeta = numeroTarjeta ?? throw new ArgumentNullException(nameof(numeroTarjeta));
             FechaDeVencimiento = fechaDeVencimiento;
             Cvv = cvv ?? throw new ArgumentNullException(nameof(cvv));
             FechaDeActualizacion = DateTime.Now;
         }
+
     }
 }

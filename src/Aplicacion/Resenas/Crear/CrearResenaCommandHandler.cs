@@ -13,14 +13,16 @@ namespace Aplicacion.Resenas.Crear
         private readonly IRepositorioResena _repositorioResena;
         private readonly IRepositorioHabitacion _repositorioHabitacion;
         private readonly IRepositorioUsuario _repositorioUsuario;
+        private readonly IRepositorioImagen _repositorioImagen;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CrearAutorCommandHandler(IRepositorioResena repositorioResena, IUnitOfWork unitOfWork, IRepositorioHabitacion repositorioHabitacion, IRepositorioUsuario repositorioUsuario)
+        public CrearAutorCommandHandler(IRepositorioResena repositorioResena, IUnitOfWork unitOfWork, IRepositorioHabitacion repositorioHabitacion, IRepositorioUsuario repositorioUsuario, IRepositorioImagen repositorioImagen)
         {
             _repositorioResena = repositorioResena ?? throw new ArgumentNullException(nameof(repositorioResena));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _repositorioHabitacion = repositorioHabitacion ?? throw new ArgumentNullException(nameof(repositorioHabitacion));
             _repositorioUsuario = repositorioUsuario ?? throw new ArgumentNullException(nameof(repositorioUsuario));
+            _repositorioImagen = repositorioImagen ?? throw new ArgumentNullException(nameof(repositorioImagen));
         }
 
         public async Task<ErrorOr<Unit>> Handle(CrearResenaCommand comando, CancellationToken cancellationToken)
@@ -53,7 +55,6 @@ namespace Aplicacion.Resenas.Crear
                     new IdImagen(Guid.NewGuid()),
                     imagen.Url
                 );
-
                 var imagenDeHabitacion = new ImagenDeResena(
                     new IdImagenDeResena(Guid.NewGuid()),
                     nuevaResena.Id,
@@ -61,6 +62,7 @@ namespace Aplicacion.Resenas.Crear
                 );
 
                 listaDeImagenes.Add(imagenDeHabitacion);
+                _repositorioImagen.Crear(imagenNueva);
 
             }
 

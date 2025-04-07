@@ -31,7 +31,8 @@ namespace Dominio.Reservas
 
         public Reserva() { }
 
-        public Reserva(IdReserva id, IdUsuario idUsuario, IdHabitacion idHabitacion, DateTime fechaIngreso, DateTime fechaSalida, int cantidadAdultos, int cantidadNinos, IdContacto idContacto, IdFormaDePago idFormaDePago) : base(id)
+        public Reserva(IdReserva id, IdUsuario idUsuario, IdHabitacion idHabitacion, DateTime fechaIngreso, DateTime fechaSalida, int cantidadAdultos, int cantidadNinos, IdContacto idContacto, IdFormaDePago idFormaDePago) 
+            : base(id)
         {
             IdUsuario = idUsuario ?? throw new ArgumentNullException(nameof(idUsuario));
             IdHabitacion = idHabitacion ?? throw new ArgumentNullException(nameof(idHabitacion));

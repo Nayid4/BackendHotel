@@ -19,7 +19,7 @@ namespace Infraestructura.Persistencia.Configuraciones
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(t => t.Numero)
+            builder.Property(t => t.NumeroTarjeta)
                 .HasMaxLength(50)
                 .IsRequired();
 

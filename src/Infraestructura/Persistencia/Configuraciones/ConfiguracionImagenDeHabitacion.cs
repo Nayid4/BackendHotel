@@ -27,7 +27,7 @@ namespace Infraestructura.Persistencia.Configuraciones
 
             builder.HasOne(t => t.Imagen)
                 .WithMany()
-                .HasForeignKey(t => t.Imagen)
+                .HasForeignKey(t => t.IdImagen)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(t => t.Habitacion)

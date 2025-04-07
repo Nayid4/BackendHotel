@@ -13,12 +13,14 @@ namespace Aplicacion.Habitaciones.Actualizar
         private readonly IRepositorioHabitacion _repositorioHabitacion;
         private readonly IRepositorioServicio _repositorioServicio;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepositorioImagen _repositorioImagen;
 
-        public ActualizarHabitacionCommandHandler(IRepositorioHabitacion repositorioHabitacion, IRepositorioServicio repositorioServicio, IUnitOfWork unitOfWork)
+        public ActualizarHabitacionCommandHandler(IRepositorioHabitacion repositorioHabitacion, IRepositorioServicio repositorioServicio, IUnitOfWork unitOfWork, IRepositorioImagen repositorioImagen)
         {
             _repositorioHabitacion = repositorioHabitacion ?? throw new ArgumentNullException(nameof(repositorioHabitacion));
             _repositorioServicio = repositorioServicio ?? throw new ArgumentNullException(nameof(repositorioServicio));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _repositorioImagen = repositorioImagen ?? throw new ArgumentNullException(nameof(repositorioImagen));
         }
         public async Task<ErrorOr<Unit>> Handle(ActualizarHabitacionCommand comando, CancellationToken cancellationToken)
         {
@@ -74,6 +76,7 @@ namespace Aplicacion.Habitaciones.Actualizar
                 );
 
                 listaDeImagenes.Add(imagenDeHabitacion);
+                _repositorioImagen.Crear(imagenNueva);
 
             }
 

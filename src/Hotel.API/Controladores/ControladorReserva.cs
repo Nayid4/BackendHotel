@@ -1,21 +1,21 @@
 ﻿
-using Aplicacion.Usuarios.Actualizar;
-using Aplicacion.Usuarios.Crear;
-using Aplicacion.Usuarios.Eliminar;
-using Aplicacion.Usuarios.ListarConFiltros;
-using Aplicacion.Usuarios.ListarPorId;
-using Aplicacion.Usuarios.ListarTodos;
+using Aplicacion.Reservas.Actualizar;
+using Aplicacion.Reservas.Crear;
+using Aplicacion.Reservas.Eliminar;
+using Aplicacion.Reservas.ListarConFiltros;
+using Aplicacion.Reservas.ListarPorId;
+using Aplicacion.Reservas.ListarTodos;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Hotel.API.Controladores
 {
-    [Route("usuario")]
+    [Route("reserva")]
     [Authorize]
-    public class ControladorUsuario : ApiController
+    public class ControladorReserva : ApiController
     {
         private readonly ISender _mediator;
 
-        public ControladorUsuario(ISender mediator)
+        public ControladorReserva(ISender mediator)
         {
             _mediator = mediator;
         }
@@ -23,7 +23,7 @@ namespace Hotel.API.Controladores
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var resultadosDeListarTodos = await _mediator.Send(new ListarTodosLosUsuariosQuery());
+            var resultadosDeListarTodos = await _mediator.Send(new ListarTodosLasReservasQuery());
 
             return resultadosDeListarTodos.Match(
                 resp => Ok(resp),
@@ -34,7 +34,7 @@ namespace Hotel.API.Controladores
         [HttpGet("{id}")]
         public async Task<IActionResult> ListarPorId(Guid id)
         {
-            var resultadosDeListarPorId = await _mediator.Send(new ListarPorIdDeUsuarioQuery(id));
+            var resultadosDeListarPorId = await _mediator.Send(new ListarPorIdDeReservaQuery(id));
 
             return resultadosDeListarPorId.Match(
                 resp => Ok(resp),
@@ -44,8 +44,7 @@ namespace Hotel.API.Controladores
 
 
         [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Crear([FromBody] CrearUsuarioCommand comando)
+        public async Task<IActionResult> Crear([FromBody] CrearReservaCommand comando)
         {
             var resultadoDeCrear = await _mediator.Send(comando);
 
@@ -58,7 +57,7 @@ namespace Hotel.API.Controladores
         [HttpDelete("{id}")]
         public async Task<IActionResult> Eliminar(Guid id)
         {
-            var resultadoDeEliminar = await _mediator.Send(new EliminarUsuarioCommand(id));
+            var resultadoDeEliminar = await _mediator.Send(new EliminarReservaCommand(id));
 
             return resultadoDeEliminar.Match(
                 resp => NoContent(),
@@ -67,13 +66,13 @@ namespace Hotel.API.Controladores
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarUsuarioCommand comando)
+        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarReservaCommand comando)
         {
             if (comando.Id != id)
             {
                 List<Error> errores = new()
                 {
-                    Error.Validation("Usuario.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
+                    Error.Validation("Reserva.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
                 };
 
                 return Problem(errores);
@@ -88,7 +87,7 @@ namespace Hotel.API.Controladores
         }
 
         [HttpPost("lista-paginada")]
-        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosUsuarioQuery comando)
+        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosReservaQuery comando)
         {
             var resultadoDeFiltrar = await _mediator.Send(comando);
 
