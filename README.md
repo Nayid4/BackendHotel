@@ -1,8 +1,8 @@
-# Backend - Gestor de pelicula
+# Backend - Hotel
 
 ## Descripción del Proyecto
 
-Este es el backend del proyecto **Gestor de pelicula**, una aplicación que permite la gestión de pelicula (CRUD). Se ha desarrollado utilizando **.NET Core** y **Entity Framework Core**, aplicando principios de **Domain-Driven Design (DDD)**, **CQRS**, **Event Sourcing**, e implementando patrones de diseño como **Repositorio**, **Unit of Work**, e **Inyección de Dependencias**.
+Este es el backend del proyecto **Hotel**, una aplicación que permite la gestión de un Hotel (CRUD). Se ha desarrollado utilizando **.NET Core** y **Entity Framework Core**, aplicando principios de **Domain-Driven Design (DDD)**, **CQRS**, **Event Sourcing**, e implementando patrones de diseño como **Repositorio**, **Unit of Work**, e **Inyección de Dependencias**.
 
 El backend está desplegado en **Azure App Services** y utiliza una base de datos **SQL Server** en Azure. Además, el proyecto puede ejecutarse en un entorno local con una base de datos local de SQL Server o mediante **Docker** usando `docker-compose`.
 
