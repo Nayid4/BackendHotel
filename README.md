@@ -25,7 +25,7 @@ El backend está desplegado en **Azure App Services** y utiliza una base de dato
 
 El backend sigue una arquitectura **Cliente-Servidor**, implementando una estructura de **Arquitectura Limpia**, que se compone de las siguientes capas:
 
-### 1. **GestionDepelicula.API** (Capa de Presentación)
+### 1. **Hotel.API** (Capa de Presentación)
    - Contiene los **controladores** que exponen los endpoints RESTful.
    - Configura **middlewares**, **extensiones**, **CORS** y **variables de entorno**.
    - Contiene los archivos **Program.cs**, **appsettings.json**, y **Dockerfiles**.
