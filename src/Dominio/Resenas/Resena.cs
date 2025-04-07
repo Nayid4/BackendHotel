@@ -1,13 +1,7 @@
 ﻿using Dominio.Genericos;
 using Dominio.Habitaciones;
-using Dominio.Imagenes;
 using Dominio.ImagenesDeResenas;
 using Dominio.Usuarios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio.Resenas
 {
@@ -25,8 +19,8 @@ namespace Dominio.Resenas
         public Habitacion? Habitacion { get; private set; } = default!;
         public Usuario? Usuario { get; private set; } = default!;
 
-        public Resena(IdResena idResena, IdHabitacion idHabitacion, IdUsuario idUsuario, string titulo, int calificacion, string descripcion)
-            : base(idResena)
+        public Resena(IdResena id, IdHabitacion idHabitacion, IdUsuario idUsuario, string titulo, int calificacion, string descripcion)
+            : base(id)
         {
             IdHabitacion = idHabitacion ?? throw new ArgumentNullException(nameof(idHabitacion));
             IdUsuario = idUsuario ?? throw new ArgumentNullException(nameof(idUsuario));

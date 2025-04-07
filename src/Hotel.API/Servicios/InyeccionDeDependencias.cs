@@ -39,12 +39,13 @@ namespace Hotel.API.Servicios
                     policyBuilder.WithOrigins(
                         "http://localhost:4000",
                         "https://localhost:4000",
+                        "http://localhost:3000",
+                        "https://localhost:3000",
+                        "http://localhost:4200",
+                        "https://localhost:4200",
                         "https://localhost:8500",
                         "https://localhost:80",
-                        "https://frontend-gestion-de-series-animadas.vercel.app",
-                        "https://frontend-gestion-de-series-animadas-angular.vercel.app",
-                        "https://frontend-gestion-de-series-animadas-angular-2ijx8svoq.vercel.app",
-                        "https://frontend-gestion-de-series-animadas-git-876feb-nayids-projects.vercel.app"
+                        "https://hotel-front-plum.vercel.app"
                         );
                     policyBuilder.AllowAnyHeader();
                     policyBuilder.AllowAnyMethod();

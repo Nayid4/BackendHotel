@@ -1,15 +1,13 @@
 ﻿
-using Aplicacion.Paises.ListarConFiltros;
 using Aplicacion.Usuarios.Actualizar;
 using Aplicacion.Usuarios.Crear;
 using Aplicacion.Usuarios.Eliminar;
 using Aplicacion.Usuarios.ListarConFiltros;
 using Aplicacion.Usuarios.ListarPorId;
 using Aplicacion.Usuarios.ListarTodos;
-using GestionDeSeriesAnimadas.API.Controladores;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GestionDeSeriesAnimadas.API.Controladores
+namespace Hotel.API.Controladores
 {
     [Route("usuario")]
     [Authorize]
@@ -75,7 +73,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
             {
                 List<Error> errores = new()
                 {
-                    Error.Validation("Genero.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
+                    Error.Validation("Usuario.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
                 };
 
                 return Problem(errores);

@@ -13,12 +13,14 @@ namespace Aplicacion.Habitaciones.Crear
         private readonly IRepositorioHabitacion _repositorioHabitacion;
         private readonly IRepositorioServicio _repositorioServicio;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepositorioImagen _repositorioImagen;
 
-        public CrearHabitacionCommandHandler(IRepositorioHabitacion repositorioHabitacion, IUnitOfWork unitOfWork, IRepositorioServicio repositorioServicio)
+        public CrearHabitacionCommandHandler(IRepositorioHabitacion repositorioHabitacion, IUnitOfWork unitOfWork, IRepositorioServicio repositorioServicio, IRepositorioImagen repositorioImagen)
         {
             _repositorioHabitacion = repositorioHabitacion ?? throw new ArgumentNullException(nameof(repositorioHabitacion));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _repositorioServicio = repositorioServicio ?? throw new ArgumentNullException(nameof(repositorioServicio));
+            _repositorioImagen = repositorioImagen ?? throw new ArgumentNullException(nameof(repositorioImagen));
         }
 
         public async Task<ErrorOr<Unit>> Handle(CrearHabitacionCommand comando, CancellationToken cancellationToken)
@@ -66,14 +68,19 @@ namespace Aplicacion.Habitaciones.Crear
 
             foreach (var imagen in comando.Imagenes)
             {
+                var imagenNueva = new Imagen(
+                    new IdImagen(Guid.NewGuid()),
+                    imagen.Url
+                );
 
                 var imagenDeHabitacion = new ImagenDeHabitacion(
                     new IdImagenDeHabitacion(Guid.NewGuid()),
                     nuevaHabitacion.Id,
-                    new IdImagen(imagen.Id)
+                    imagenNueva.Id
                 );
 
                 listaDeImagenes.Add(imagenDeHabitacion);
+                _repositorioImagen.Crear(imagenNueva);
 
             }
 
