@@ -1,30 +1,35 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER app
+# Etapa base: Runtime para producción y desarrollo
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
-# This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+# Etapa de construcción
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/GestionDeSeriesAnimadas/GestionDeSeriesAnimadas.csproj", "src/GestionDeSeriesAnimadas/"]
-RUN dotnet restore "./src/GestionDeSeriesAnimadas/GestionDeSeriesAnimadas.csproj"
-COPY . .
-WORKDIR "/src/src/GestionDeSeriesAnimadas"
-RUN dotnet build "./GestionDeSeriesAnimadas.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# This stage is used to publish the service project to be copied to the final stage
+# Copiar y restaurar dependencias (todas las bibliotecas)
+COPY ["src/Hotel.API/Hotel.API.csproj", "Hotel.API/"]
+COPY ["src/Aplicacion/Aplicacion.csproj", "Aplicacion/"]
+COPY ["src/Infraestructura/Infraestructura.csproj", "Infraestructura/"]
+COPY ["src/Dominio/Dominio.csproj", "Dominio/"]
+
+RUN dotnet restore "Hotel.API/Hotel.API.csproj"
+
+
+# Copiar el resto del código fuente y compilar
+COPY ./src .
+WORKDIR "/src/Hotel.API"
+RUN dotnet build "Hotel.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Etapa de publicación
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./GestionDeSeriesAnimadas.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Hotel.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+# Etapa final: ejecutando la aplicación
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "GestionDeSeriesAnimadas.dll"]
+ENTRYPOINT ["dotnet", "Hotel.API.dll"]

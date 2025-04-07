@@ -39,6 +39,10 @@ namespace Hotel.API.Servicios
                     policyBuilder.WithOrigins(
                         "http://localhost:4000",
                         "https://localhost:4000",
+                        "http://localhost:3000",
+                        "https://localhost:3000",
+                        "http://localhost:4200",
+                        "https://localhost:4200",
                         "https://localhost:8500",
                         "https://localhost:80",
                         "https://hotel-front-plum.vercel.app"
