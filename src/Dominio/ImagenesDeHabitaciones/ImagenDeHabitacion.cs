@@ -15,6 +15,7 @@ namespace Dominio.ImagenesDeHabitaciones
         public IdImagen IdImagen { get; private set; } = default!;
 
         public Imagen? Imagen { get; private set; } = default!;
+        public Habitacion? Habitacion { get; private set; } = default!;
 
         public ImagenDeHabitacion()
         {

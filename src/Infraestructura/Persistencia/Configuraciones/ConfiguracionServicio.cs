@@ -1,17 +1,17 @@
-﻿using Dominio.Generos;
+﻿using Dominio.Servicios;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructura.Persistencia.Configuraciones
 {
-    public class ConfiguracionGenero : IEntityTypeConfiguration<Genero>
+    public class ConfiguracionServicio : IEntityTypeConfiguration<Servicio>
     {
-        public void Configure(EntityTypeBuilder<Genero> builder)
+        public void Configure(EntityTypeBuilder<Servicio> builder)
         {
             builder.HasKey(t => t.Id);
 
             builder.Property(t => t.Id).HasConversion(
                 gene => gene.Valor,
-                valor => new IdGenero(valor));
+                valor => new IdServicio(valor));
 
             builder.Property(t => t.Nombre)
                 .HasMaxLength(50)

@@ -1,25 +1,20 @@
-﻿using Dominio.Generos;
-using Dominio.Paises;
+﻿
+using Dominio.Imagenes;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infraestructura.Persistencia.Configuraciones
 {
-    public class ConfiguracionPais : IEntityTypeConfiguration<Pais>
+    public class ConfiguracionImagen : IEntityTypeConfiguration<Imagen>
     {
-        public void Configure(EntityTypeBuilder<Pais> builder)
+        public void Configure(EntityTypeBuilder<Imagen> builder)
         {
             builder.HasKey(t => t.Id);
 
             builder.Property(t => t.Id).HasConversion(
                 gene => gene.Valor,
-                valor => new IdPais(valor));
+                valor => new IdImagen(valor));
 
-            builder.Property(t => t.Nombre)
+            builder.Property(t => t.Url)
                 .HasMaxLength(50)
                 .IsRequired();
 

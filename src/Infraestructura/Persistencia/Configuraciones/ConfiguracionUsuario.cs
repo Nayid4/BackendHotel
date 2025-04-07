@@ -37,6 +37,11 @@ namespace Infraestructura.Persistencia.Configuraciones
                 .HasMaxLength(255)
                 .IsRequired();
 
+            builder.HasMany(t => t.Reservas)
+                .WithOne()
+                .HasForeignKey(t => t.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(t => t.FechaDeCreacion)
                 .IsRequired();
 

@@ -15,6 +15,7 @@ namespace Dominio.ImagenesDeResenas
         public IdImagen IdImagen { get; private set; } = default!;
 
         public Imagen? Imagen { get; private set; } = default!;
+        public Resena? Resena { get; private set; } = default!;
 
         public ImagenDeResena(IdImagenDeResena idImagenDeResena, IdResena idResena, IdImagen idImagen)
             : base(idImagenDeResena)
