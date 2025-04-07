@@ -1,6 +1,5 @@
 ﻿using Dominio.Genericos;
 using Dominio.Habitaciones;
-using Dominio.Imagenes;
 using Dominio.ImagenesDeResenas;
 using Dominio.Usuarios;
 

@@ -12,6 +12,7 @@ namespace Dominio.Usuarios
     public sealed class Usuario : EntidadGenerica<IdUsuario>
     {
         private readonly HashSet<Reserva> _reservas = new();
+        private readonly HashSet<Resena> _resenas = new();
 
         public string Nombre { get; private set; } = string.Empty;
         public string Apellido { get; private set; } = string.Empty;
@@ -21,6 +22,7 @@ namespace Dominio.Usuarios
         public string Contrasena { get; private set; } = string.Empty;
 
         public IReadOnlyCollection<Reserva> Reservas => _reservas.ToList();
+        public IReadOnlyCollection<Resena> Resenas => _resenas.ToList();
 
         public Usuario() { }
 
@@ -66,6 +68,30 @@ namespace Dominio.Usuarios
         {
             _reservas.Clear();
             _reservas.UnionWith(nuevasReservas);
+            FechaDeActualizacion = DateTime.Now;
+        }
+
+        public void AgregarResena(Resena resena)
+        {
+            if (resena == null) throw new ArgumentNullException(nameof(resena));
+            _resenas.Add(resena);
+        }
+
+        public void EliminarResena(Resena resena)
+        {
+            if (resena == null) throw new ArgumentNullException(nameof(resena));
+            _resenas.Remove(resena);
+        }
+
+        public void LimpiarResenas()
+        {
+            _resenas.Clear();
+        }
+
+        public void ActualizarResenas(List<Resena> nuevasResenas)
+        {
+            _resenas.Clear();
+            _resenas.UnionWith(nuevasResenas);
             FechaDeActualizacion = DateTime.Now;
         }
     }

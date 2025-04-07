@@ -11,6 +11,6 @@ namespace Aplicacion.Habitaciones.Comun
     );
 
     public record ComandoImagen(
-        Guid Id
+        string Url
     );
 }

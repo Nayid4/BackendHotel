@@ -16,27 +16,41 @@ namespace Infraestructura.Persistencia.Repositorios
 
         public async Task<Usuario?> IniciarSesion(string nombreDeUsuario, string contrasena)
         {
-            return await _dbSet.Include(u => u.Reservas).FirstOrDefaultAsync(u => u.NombreDeUsuario == nombreDeUsuario && u.Contrasena == contrasena);
+            return await _dbSet
+                .Include(u => u.Reservas)
+                .Include(u => u.Resenas)
+                .FirstOrDefaultAsync(u => u.NombreDeUsuario == nombreDeUsuario && u.Contrasena == contrasena);
         }
 
         public async Task<Usuario?> ListarPorCorreo(string correo)
         {
-            return await _dbSet.Include(u => u.Reservas).FirstOrDefaultAsync(u => u.Correo == correo);
+            return await _dbSet
+                .Include(u => u.Reservas)
+                .Include(u => u.Resenas)
+                .FirstOrDefaultAsync(u => u.Correo == correo);
         }
 
         public async Task<Usuario?> ListarPorIdUsuario(IdUsuario id)
         {
-            return await _dbSet.Include(u => u.Reservas).FirstOrDefaultAsync(u => u.Id == id);
+            return await _dbSet
+                .Include(u => u.Reservas)
+                .Include(u => u.Resenas)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<Usuario?> ListarPorNombreDeUsuario(string nombreDeUsuario)
         {
-            return await _dbSet.Include(u => u.Reservas).FirstOrDefaultAsync(u => u.NombreDeUsuario == nombreDeUsuario);
+            return await _dbSet
+                .Include(u => u.Reservas)
+                .Include(u => u.Resenas)
+                .FirstOrDefaultAsync(u => u.NombreDeUsuario == nombreDeUsuario);
         }
 
         public IQueryable<Usuario> ListarTodosLosUsuarios()
         {
-            return _dbSet.Include(u => u.Reservas);
+            return _dbSet
+                .Include(u => u.Resenas)
+                .Include(u => u.Reservas);
         }
     }
 }

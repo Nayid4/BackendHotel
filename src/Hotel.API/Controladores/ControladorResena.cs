@@ -1,23 +1,21 @@
 ﻿
-using Aplicacion.Actores.Actualizar;
-using Aplicacion.Actores.Crear;
-using Aplicacion.Actores.Eliminar;
-using Aplicacion.Actores.ListarConFiltros;
-using Aplicacion.Actores.ListarPorId;
-using Aplicacion.Actores.ListarTodos;
-using Aplicacion.Generos.ListarConFiltros;
-using GestionDeSeriesAnimadas.API.Controladores;
+using Aplicacion.Resenas.Actualizar;
+using Aplicacion.Resenas.Crear;
+using Aplicacion.Resenas.Eliminar;
+using Aplicacion.Resenas.ListarConFiltros;
+using Aplicacion.Resenas.ListarPorId;
+using Aplicacion.Resenas.ListarTodos;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GestionDeSeriesAnimadas.API.Controladores
+namespace Hotel.API.Controladores
 {
-    [Route("actor")]
+    [Route("resena")]
     [Authorize]
-    public class ControladorActor : ApiController
+    public class ControladorResena : ApiController
     {
         private readonly ISender _mediator;
 
-        public ControladorActor(ISender mediator)
+        public ControladorResena(ISender mediator)
         {
             _mediator = mediator;
         }
@@ -25,7 +23,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var resultadosDeListarTodos = await _mediator.Send(new ListarTodosLosActoresQuery());
+            var resultadosDeListarTodos = await _mediator.Send(new ListarTodosLosResenaQuery());
 
             return resultadosDeListarTodos.Match(
                 resp => Ok(resp),
@@ -36,7 +34,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         [HttpGet("{id}")]
         public async Task<IActionResult> ListarPorId(Guid id)
         {
-            var resultadosDeListarPorId = await _mediator.Send(new ListarPorIdDeActorQuery(id));
+            var resultadosDeListarPorId = await _mediator.Send(new ListarPorIdDeResenaQuery(id));
 
             return resultadosDeListarPorId.Match(
                 resp => Ok(resp),
@@ -46,7 +44,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
 
 
         [HttpPost]
-        public async Task<IActionResult> Crear([FromBody] CrearActorCommand comando)
+        public async Task<IActionResult> Crear([FromBody] CrearResenaCommand comando)
         {
             var resultadoDeCrear = await _mediator.Send(comando);
 
@@ -59,7 +57,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         [HttpDelete("{id}")]
         public async Task<IActionResult> Eliminar(Guid id)
         {
-            var resultadoDeEliminar = await _mediator.Send(new EliminarActorCommand(id));
+            var resultadoDeEliminar = await _mediator.Send(new EliminarResenaCommand(id));
 
             return resultadoDeEliminar.Match(
                 resp => NoContent(),
@@ -68,13 +66,13 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarActorCommand comando)
+        public async Task<IActionResult> Actualizar(Guid id, [FromBody] ActualizarResenaCommand comando)
         {
             if (comando.Id != id)
             {
                 List<Error> errores = new()
                 {
-                    Error.Validation("Genero.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
+                    Error.Validation("Resena.ActualizacionInvalida","El Id de la consulta no es igual al que esta en la solicitud.")
                 };
 
                 return Problem(errores);
@@ -89,7 +87,7 @@ namespace GestionDeSeriesAnimadas.API.Controladores
         }
 
         [HttpPost("lista-paginada")]
-        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosActorQuery comando)
+        public async Task<IActionResult> ListarPorFiltro([FromBody] ListarConFiltrosResenaQuery comando)
         {
             var resultadoDeFiltrar = await _mediator.Send(comando);
 

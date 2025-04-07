@@ -62,11 +62,15 @@ namespace Aplicacion.Habitaciones.Actualizar
 
             foreach (var imagen in comando.Imagenes)
             {
+                var imagenNueva = new Imagen(
+                    new IdImagen(Guid.NewGuid()),
+                    imagen.Url
+                );
 
                 var imagenDeHabitacion = new ImagenDeHabitacion(
                     new IdImagenDeHabitacion(Guid.NewGuid()),
                     habitacion.Id,
-                    new IdImagen(imagen.Id)
+                    imagenNueva.Id  
                 );
 
                 listaDeImagenes.Add(imagenDeHabitacion);

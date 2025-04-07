@@ -23,8 +23,8 @@ services:
   api:
     build:
       context: .  
-      dockerfile: src/GestionDeTareas.API/Dockerfile
-    container_name: gestion_tareas_api
+      dockerfile: src/Hotel.API/Dockerfile
+    container_name: hotel_api
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_KESTREL__ENDPOINTS__HTTP__URL=http://+:80
@@ -36,6 +36,15 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+
+  runtrack-blob-storage:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    container_name: runtracker.blob-storage
+    volumes:
+      - ./.containers/blob-storage/data:/data
+    ports:
+      - "10000:10000"  # Blob service
+    command: "azurite-blob --blobHost 0.0.0 -l /data"
 
 volumes:
   appdata:
