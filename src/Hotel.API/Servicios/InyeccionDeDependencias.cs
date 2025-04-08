@@ -45,7 +45,8 @@ namespace Hotel.API.Servicios
                         "https://localhost:4200",
                         "https://localhost:8500",
                         "https://localhost:80",
-                        "https://hotel-front-plum.vercel.app"
+                        "https://hotel-front-plum.vercel.app",
+                        "https://hotel-front-react.vercel.app"
                         );
                     policyBuilder.AllowAnyHeader();
                     policyBuilder.AllowAnyMethod();
